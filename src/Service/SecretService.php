@@ -29,7 +29,9 @@ class SecretService
             $secretPayloadDTO->expireAfterViews,
         );
 
-        return $this->store($secretDTO);
+        $secret = $this->store($secretDTO);
+
+        return $this->secretMapper->map($secret);
     }
 
     private function generateHash(): string
@@ -43,7 +45,7 @@ class SecretService
         return $hash;
     }
 
-    private function store(SecretDTO $secretDTO): SecretDTO
+    private function store(SecretDTO $secretDTO): Secret
     {
         $secret = new Secret();
 
@@ -57,6 +59,6 @@ class SecretService
 
         $this->entityManager->flush();
 
-        return $this->secretMapper->map($secret);
+        return $secret;
     }
 }
