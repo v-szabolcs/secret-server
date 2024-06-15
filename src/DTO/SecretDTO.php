@@ -5,11 +5,11 @@ namespace App\DTO;
 class SecretDTO
 {
     public function __construct(
-        public string $hash,
-        public string $secretText,
-        public \DateTimeImmutable $createdAt,
-        public ?\DateTimeImmutable $expiresAt,
-        public int $remainingViews,
+        public readonly string $hash,
+        public readonly string $secretText,
+        public readonly \DateTimeImmutable $createdAt,
+        public readonly ?\DateTimeImmutable $expiresAt,
+        public readonly int $remainingViews,
     ) {
     }
 }

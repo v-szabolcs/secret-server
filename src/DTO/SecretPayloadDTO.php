@@ -8,13 +8,13 @@ class SecretPayloadDTO
 {
     public function __construct(
         #[Assert\Length(min: 1, max: 255)]
-        public string $secret,
+        public readonly string $secret,
 
         #[Assert\Positive]
-        public int $expireAfterViews,
+        public readonly int $expireAfterViews,
 
         #[Assert\PositiveOrZero]
-        public int $expireAfter,
+        public readonly int $expireAfter,
     ) {
     }
 }
