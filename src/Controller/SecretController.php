@@ -36,11 +36,11 @@ class SecretController extends AbstractController
                 $payload->get('expireAfter'),
             );
         } catch (\TypeError) {
-            return $this->responseFactory->build(['error' => 'invalid input'], 405, [], $acceptHeader);
+            return $this->responseFactory->build(['error' => 'Invalid input'], 405, [], $acceptHeader);
         }
 
         if (!$this->objectValidator->isValid($secretPayloadDTO)) {
-            return $this->responseFactory->build(['error' => 'invalid input'], 405, [], $acceptHeader);
+            return $this->responseFactory->build(['error' => 'Invalid input'], 405, [], $acceptHeader);
         }
 
         $secretDTO = $this->secretService->create($secretPayloadDTO);
@@ -56,7 +56,7 @@ class SecretController extends AbstractController
         $secretDTO = $this->secretService->get($hash);
 
         if (!$secretDTO) {
-            return $this->responseFactory->build(['error' => 'secret not found'], 404, [], $acceptHeader);
+            return $this->responseFactory->build(['error' => 'Secret not found'], 404, [], $acceptHeader);
         }
 
         return $this->responseFactory->build($secretDTO, 200, [], $acceptHeader);
