@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\SecretService;
+use App\Factory\ResponseFactory;
 use App\Validator\ObjectValidator;
 use App\Mapper\SecretPayloadMapper;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,12 +18,15 @@ class SecretController extends AbstractController
         private SecretPayloadMapper $secretPayloadMapper,
         private ObjectValidator $objectValidator,
         private SecretService $secretService,
+        private ResponseFactory $responseFactory,
     ) {
     }
 
     #[Route(path: '/secret', name: 'post', methods: ['POST'])]
     public function post(Request $request): Response
     {
+        $acceptHeader = $request->headers->get('accept');
+
         $payload = $request->request;
 
         try {
@@ -32,20 +36,20 @@ class SecretController extends AbstractController
                 $payload->get('expireAfter'),
             );
         } catch (\TypeError) {
-            return $this->json(['test' => 'invalid input'], 405);
+            return $this->responseFactory->build(['error' => 'invalid input'], 405, [], $acceptHeader);
         }
 
         if (!$this->objectValidator->isValid($secretPayloadDTO)) {
-            return $this->json(['test' => 'invalid input'], 405);
+            return $this->responseFactory->build(['error' => 'invalid input'], 405, [], $acceptHeader);
         }
 
         try {
             $secretDTO = $this->secretService->create($secretPayloadDTO);
         } catch (\TypeError) {
-            return $this->json(['test' => 'invalid input'], 405);
+            return $this->responseFactory->build(['error' => 'invalid input'], 405, [], $acceptHeader);
         }
 
-        return $this->json($secretDTO, 200);
+        return $this->responseFactory->build($secretDTO, 200, [], $acceptHeader);
     }
 
     #[Route(path: '/secret/{hash}', name: 'get', methods: ['GET'])]
