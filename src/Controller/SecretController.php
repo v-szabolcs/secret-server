@@ -43,18 +43,22 @@ class SecretController extends AbstractController
             return $this->responseFactory->build(['error' => 'invalid input'], 405, [], $acceptHeader);
         }
 
-        try {
-            $secretDTO = $this->secretService->create($secretPayloadDTO);
-        } catch (\TypeError) {
-            return $this->responseFactory->build(['error' => 'invalid input'], 405, [], $acceptHeader);
-        }
+        $secretDTO = $this->secretService->create($secretPayloadDTO);
 
         return $this->responseFactory->build($secretDTO, 200, [], $acceptHeader);
     }
 
     #[Route(path: '/secret/{hash}', name: 'get', methods: ['GET'])]
-    public function get(): Response
+    public function get(string $hash, Request $request): Response
     {
-        return $this->json(['test' => 'get route'], 200);
+        $acceptHeader = $request->headers->get('accept');
+
+        $secretDTO = $this->secretService->get($hash);
+
+        if (!$secretDTO) {
+            return $this->responseFactory->build(['error' => 'secret not found'], 404, [], $acceptHeader);
+        }
+
+        return $this->responseFactory->build($secretDTO, 200, [], $acceptHeader);
     }
 }

@@ -34,6 +34,21 @@ class SecretService
         return $this->secretMapper->map($secret);
     }
 
+    public function get(string $hash): ?SecretDTO
+    {
+        $repository = $this->entityManager->getRepository(Secret::class);
+
+        $secret = $repository->findOneAvailableByHash($hash);
+
+        if (!$secret) {
+            return null;
+        }
+
+        $secret = $this->decreaseRemainingViews($secret);
+
+        return $this->secretMapper->map($secret);
+    }
+
     private function generateHash(): string
     {
         $repository = $this->entityManager->getRepository(Secret::class);
@@ -54,6 +69,19 @@ class SecretService
         $secret->setCreatedAt($secretDTO->createdAt);
         $secret->setExpiresAt($secretDTO->expiresAt);
         $secret->setRemainingViews($secretDTO->remainingViews);
+
+        $this->entityManager->persist($secret);
+
+        $this->entityManager->flush();
+
+        return $secret;
+    }
+
+    private function decreaseRemainingViews(Secret $secret): Secret
+    {
+        $remainingViews = $secret->getRemainingViews();
+
+        $secret->setRemainingViews($remainingViews - 1);
 
         $this->entityManager->persist($secret);
 
