@@ -51,13 +51,22 @@ class SecretService
 
     private function generateHash(): string
     {
-        $repository = $this->entityManager->getRepository(Secret::class);
-
         do {
             $hash = bin2hex(random_bytes(20));
-        } while ($repository->count(['hash' => $hash]) > 0);
+        } while (!$this->isHashUnique($hash));
 
         return $hash;
+    }
+
+    private function isHashUnique(string $hash): bool
+    {
+        $repository = $this->entityManager->getRepository(Secret::class);
+
+        if ($repository->count(['hash' => $hash]) > 0) {
+            return false;
+        }
+
+        return true;
     }
 
     private function store(SecretDTO $secretDTO): Secret
