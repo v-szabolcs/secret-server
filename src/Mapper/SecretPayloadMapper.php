@@ -6,12 +6,12 @@ use App\DTO\SecretPayloadDTO;
 
 class SecretPayloadMapper
 {
-    public function map(array $payload): SecretPayloadDTO
+    public function map(string $secret, int $expireAfterViews, int $expireAfter): SecretPayloadDTO
     {
         return new SecretPayloadDTO(
-            $payload['secret'],
-            $payload['expireAfterViews'],
-            $payload['expireAfter'],
+            $secret,
+            $expireAfterViews,
+            $expireAfter,
         );
     }
 }
