@@ -9,14 +9,14 @@ http://api.example.com/v1
 | /secret | POST (x-www-form-urlencoded) | Add new secret |
 | /secret/{hash} | GET | Get secret by hash |
 
-## Add New Secret - Parameters
+## Add New Secret - Payload
 | Name | Type | Required |
 | :--- | :--- | :--- |
 | secret | string | yes |
 | expireAfterViews | int | yes |
 | expireAfter | int | yes |
 
-## Get Secret By Hash - Parameters
+## Get Secret By Hash - Route Parameter
 | Name | Type | Required |
 | :--- | :--- | :--- |
 | hash | string | yes |
