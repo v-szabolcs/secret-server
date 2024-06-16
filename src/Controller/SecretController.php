@@ -32,8 +32,8 @@ class SecretController extends AbstractController
         try {
             $secretPayloadDTO = $this->secretPayloadMapper->map(
                 $payload->get('secret'),
-                $payload->get('expireAfterViews'),
-                $payload->get('expireAfter'),
+                $payload->filter('expireAfterViews', null, \FILTER_VALIDATE_INT, ['flags' => \FILTER_REQUIRE_SCALAR | \FILTER_NULL_ON_FAILURE]),
+                $payload->filter('expireAfter', null, \FILTER_VALIDATE_INT, ['flags' => \FILTER_REQUIRE_SCALAR | \FILTER_NULL_ON_FAILURE]),
             );
         } catch (\TypeError) {
             return $this->responseFactory->build(['error' => 'Invalid input'], 405, [], $acceptHeader);
