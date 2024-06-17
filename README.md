@@ -1,7 +1,7 @@
 # Secret Server Task
 
 ## Base URL
-http://api.example.com/v1
+http://api.secretserver.nhely.hu/v1
 
 ## Endpoints
 | Route | Method | Description |
