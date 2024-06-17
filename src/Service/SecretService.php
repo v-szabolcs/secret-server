@@ -31,7 +31,7 @@ class SecretService
 
         $secret = $this->store($secretDTO);
 
-        return $this->secretMapper->map($secret);
+        return $this->secretMapper->toDTO($secret);
     }
 
     public function get(string $hash): ?SecretDTO
@@ -46,7 +46,7 @@ class SecretService
 
         $secret = $this->decreaseRemainingViews($secret);
 
-        return $this->secretMapper->map($secret);
+        return $this->secretMapper->toDTO($secret);
     }
 
     private function generateHash(): string
@@ -71,13 +71,7 @@ class SecretService
 
     private function store(SecretDTO $secretDTO): Secret
     {
-        $secret = new Secret();
-
-        $secret->setHash($secretDTO->hash);
-        $secret->setSecretText($secretDTO->secretText);
-        $secret->setCreatedAt($secretDTO->createdAt);
-        $secret->setExpiresAt($secretDTO->expiresAt);
-        $secret->setRemainingViews($secretDTO->remainingViews);
+        $secret = $this->secretMapper->toSecret($secretDTO);
 
         $this->entityManager->persist($secret);
 

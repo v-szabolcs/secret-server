@@ -30,7 +30,7 @@ class SecretController extends AbstractController
         $payload = $request->request;
 
         try {
-            $secretPayloadDTO = $this->secretPayloadMapper->map(
+            $secretPayloadDTO = $this->secretPayloadMapper->toDTO(
                 $payload->get('secret'),
                 $payload->filter('expireAfterViews', null, \FILTER_VALIDATE_INT, ['flags' => \FILTER_REQUIRE_SCALAR | \FILTER_NULL_ON_FAILURE]),
                 $payload->filter('expireAfter', null, \FILTER_VALIDATE_INT, ['flags' => \FILTER_REQUIRE_SCALAR | \FILTER_NULL_ON_FAILURE]),
