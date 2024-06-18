@@ -22,6 +22,9 @@ class SecretController extends AbstractController
     ) {
     }
 
+    /**
+     * Add new secret
+     */
     #[Route(path: '/secret', name: 'post', methods: ['POST'])]
     public function post(Request $request): Response
     {
@@ -48,6 +51,9 @@ class SecretController extends AbstractController
         return $this->responseFactory->build($secretDTO, 200, [], $acceptHeader);
     }
 
+    /**
+     * Get secret by hash
+     */
     #[Route(path: '/secret/{hash}', name: 'get', methods: ['GET'])]
     public function get(string $hash, Request $request): Response
     {

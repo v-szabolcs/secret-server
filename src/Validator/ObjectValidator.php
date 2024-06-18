@@ -11,6 +11,9 @@ class ObjectValidator
     ) {
     }
 
+    /**
+     * Check object is valid
+     */
     public function isValid(object $object): bool
     {
         $errors = $this->validator->validate($object);

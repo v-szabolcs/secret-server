@@ -16,6 +16,9 @@ class SecretService
     ) {
     }
 
+    /**
+     * Create secret
+     */
     public function create(SecretPayloadDTO $secretPayloadDTO): SecretDTO
     {
         $createdAt = new \DateTimeImmutable('now');
@@ -34,6 +37,9 @@ class SecretService
         return $this->secretMapper->toDTO($secret);
     }
 
+    /**
+     * Get secret
+     */
     public function get(string $hash): ?SecretDTO
     {
         $repository = $this->entityManager->getRepository(Secret::class);
@@ -49,6 +55,9 @@ class SecretService
         return $this->secretMapper->toDTO($secret);
     }
 
+    /**
+     * Generate hash
+     */
     private function generateHash(): string
     {
         do {
@@ -58,6 +67,9 @@ class SecretService
         return $hash;
     }
 
+    /**
+     * Check hash is unique in database
+     */
     private function isHashUnique(string $hash): bool
     {
         $repository = $this->entityManager->getRepository(Secret::class);
@@ -69,6 +81,9 @@ class SecretService
         return true;
     }
 
+    /**
+     * Store secret
+     */
     private function store(SecretDTO $secretDTO): Secret
     {
         $secret = $this->secretMapper->toSecret($secretDTO);
@@ -80,6 +95,9 @@ class SecretService
         return $secret;
     }
 
+    /**
+     * Decrease remaining views by one
+     */
     private function decreaseRemainingViews(Secret $secret): Secret
     {
         $remainingViews = $secret->getRemainingViews();

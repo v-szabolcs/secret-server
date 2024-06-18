@@ -13,6 +13,9 @@ class SecretRepository extends ServiceEntityRepository
         parent::__construct($registry, Secret::class);
     }
 
+    /**
+     * Find one available secret by hash
+     */
     public function findOneAvailableByHash(string $hash): ?Secret
     {
         $queryBuilder = $this->createQueryBuilder('e')

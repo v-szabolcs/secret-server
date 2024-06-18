@@ -7,6 +7,9 @@ use App\Entity\Secret;
 
 class SecretMapper
 {
+    /**
+     * Map entity to DTO
+     */
     public function toDTO(Secret $secret): SecretDTO
     {
         return new SecretDTO(
@@ -18,6 +21,9 @@ class SecretMapper
         );
     }
 
+    /**
+     * Map DTO to entity
+     */
     public function toSecret(SecretDTO $secretDTO): Secret
     {
         $secret = new Secret();

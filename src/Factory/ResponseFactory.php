@@ -13,6 +13,9 @@ class ResponseFactory
     ) {
     }
 
+    /**
+     * Build response based on accept header
+     */
     public function build(object|array $content, int $status, array $headers, string $acceptHeader): Response
     {
         switch ($acceptHeader) {
@@ -29,6 +32,9 @@ class ResponseFactory
         return new Response($formattedContent, $status, $headers);
     }
 
+    /**
+     * Format response content to xml
+     */
     private function formatXml(object|array $content): string
     {
         return $this->serializer->serialize($content, 'xml', [
@@ -38,6 +44,9 @@ class ResponseFactory
         ]);
     }
 
+    /**
+     * Format response content to json
+     */
     private function formatJson(object|array $content): string
     {
         return $this->serializer->serialize($content, 'json', [
