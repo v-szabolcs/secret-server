@@ -57,7 +57,7 @@ class SecretController extends AbstractController
     #[Route(path: '/secret/{hash}', name: 'get', methods: ['GET'])]
     public function get(string $hash, Request $request): Response
     {
-        $acceptHeader = $request->headers->get('accept');
+        $acceptHeader = $request->headers->get('accept', 'application/json');
 
         $secretDTO = $this->secretService->get($hash);
 
