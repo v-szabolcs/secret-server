@@ -28,7 +28,7 @@ class SecretController extends AbstractController
     #[Route(path: '/secret', name: 'post', methods: ['POST'])]
     public function post(Request $request): Response
     {
-        $acceptHeader = $request->headers->get('accept');
+        $acceptHeader = $request->headers->get('accept', 'application/json');
 
         $payload = $request->request;
 
