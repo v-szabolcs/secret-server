@@ -25,4 +25,4 @@ http://api.secretserver.nhely.hu/v1
 | Format | Value |
 | :--- | :--- |
 | XML | application/xml |
-| JSON | application/json |
+| JSON | application/json (fallback) |
