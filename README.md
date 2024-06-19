@@ -7,7 +7,7 @@ http://api.secretserver.nhely.hu/v1
 | Route | Method | Description |
 | :--- | :--- | :--- |
 | /secret | POST (x-www-form-urlencoded) | Add new secret |
-| /secret/{hash} | GET | Get secret by hash |
+| /secret/{hash} | GET | Find secret by hash |
 
 ## Add New Secret - Payload
 | Name | Type | Required |
