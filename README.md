@@ -12,9 +12,9 @@ http://api.secretserver.nhely.hu/v1
 ## Add New Secret - Payload
 | Name | Type | Required |
 | :--- | :--- | :--- |
-| secret | string | yes |
-| expireAfterViews | int | yes |
-| expireAfter | int | yes |
+| secret (max. 255 char) | string | yes |
+| expireAfterViews (>0) | int | yes |
+| expireAfter (>=0) | int | yes |
 
 ## Get Secret By Hash - Route Parameter
 | Name | Type | Required |
