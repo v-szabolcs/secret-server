@@ -21,7 +21,7 @@ http://api.secretserver.nhely.hu/v1
 | :--- | :--- | :--- |
 | hash | string | yes |
 
-## Response By Accept Header
+## Response Based On Accept Header
 | Format | Value |
 | :--- | :--- |
 | XML | application/xml |
