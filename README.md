@@ -1,8 +1,5 @@
 # Secret Server Task
 
-## Base URL
-http://api.secretserver.nhely.hu/v1
-
 ## Endpoints
 | Route | Method | Description |
 | :--- | :--- | :--- |
